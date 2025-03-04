@@ -1,7 +1,8 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { ChatAreaProps } from "../types/types";
 
-function ChatArea({activeChat,isVisible,setVisible}) {
+function ChatArea({activeChat,isVisible,setVisible}:ChatAreaProps) {
 
     return (
     <div className={`${isVisible ? "left-0" : "left-full" } absolute transition-all duration-700 w-full h-full md:static bg-white`}>

@@ -1,5 +1,7 @@
 import {   useState } from "react"
 import { Link } from "react-router-dom"
+import api from "../../api/api"
+import { toast } from "react-toastify"
 
 function Signup() {
     const [firstName,setFirstName] = useState('')
@@ -7,11 +9,17 @@ function Signup() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [confirmPassword,setConfirmPassword] = useState('')
-    const handleFormSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
+    const handleFormSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
-        console.log(firstName,lastName,email,password,confirmPassword)
+        try{
+          const res = await api.post('/signup',{firstName,lastName,email,password})
+          console.log(res)
+          toast.success('signup successfully')
+        }
+        catch(err){
+          toast.error(err?.response?.data?.message)
+        }
     }
-    console.log('render')
 
   return (
     <div className="w-screen h-screen px-4 flex items-center justify-center bg-[#ededed]">

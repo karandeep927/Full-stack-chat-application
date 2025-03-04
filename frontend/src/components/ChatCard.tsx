@@ -1,5 +1,6 @@
+import { ChatCardProps } from "../types/types"
 
-function ChatCard({onClick,user}) {
+const ChatCard:React.FC<ChatCardProps> = ({onClick,user})=>{
   return (
     <div onClick={onClick} className="w-full flex items-start justify-between cursor-pointer p-2 border-b-2">
         <div className="h-11 w-11 rounded-full bg-gray-500 overflow-hidden"><img className="object-cover" src={user.img} alt="profile picture" /></div>
