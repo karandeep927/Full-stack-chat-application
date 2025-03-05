@@ -5,7 +5,7 @@ function NavBar() {
         <h1 className="text-2xl font-bold">
             Chatter.com
         </h1>
-        <button className="text-red-500 font-medium rounded-md py-2 px-2 border border-white transition shadow-md active:bg-blue-600">Log Out</button>
+        <button className="font-medium rounded-md py-2 px-2 border border-white transition shadow-md active:bg-blue-600">Log Out</button>
     </div>
   )
 }

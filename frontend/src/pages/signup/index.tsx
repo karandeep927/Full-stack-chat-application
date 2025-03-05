@@ -1,7 +1,8 @@
 import {   useState } from "react"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import api from "../../api/api"
 import { toast } from "react-toastify"
+import { isAxiosError } from "axios"
 
 function Signup() {
     const [firstName,setFirstName] = useState('')
@@ -9,15 +10,24 @@ function Signup() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [confirmPassword,setConfirmPassword] = useState('')
+    const navigate = useNavigate()
+
     const handleFormSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
+        if(password !== confirmPassword){
+          toast.warning("Password does't match")
+          return;
+        }
         try{
           const res = await api.post('/signup',{firstName,lastName,email,password})
           console.log(res)
-          toast.success('signup successfully')
+          toast.success(res.data.message)
+          navigate('/')
         }
         catch(err){
-          toast.error(err?.response?.data?.message)
+          if(isAxiosError(err)){
+            toast.error(err?.response?.data?.message)
+          }
         }
     }
 

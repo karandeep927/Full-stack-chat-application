@@ -1,12 +1,27 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import api from "../../api/api"
+import { toast } from "react-toastify"
+import { isAxiosError } from "axios"
 
 function LogIn() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const handleFormSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault();
+    const navigate = useNavigate()
 
+    const handleFormSubmit = async (e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault();
+      try{
+        const res = await api.post('/login',{email,password})
+        console.log(res)
+        toast.success(res.data.message)
+        navigate('/')
+      }
+      catch(err){
+        if(isAxiosError(err)){
+          toast.error(err?.response?.data?.message)
+        }
+      }
     }
     return (
     <div className="w-screen h-screen px-4 flex items-center justify-center bg-[#ededed]">
